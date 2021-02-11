@@ -164,13 +164,14 @@ $ go run main.go
 
 Second console run the client
 ```
-$ cd server
+$ cd client
 $ go run main.go
 ```
 
-Third console run the curl
+Third console run the curl to trigger server sending a message to client
 ```
 $ curl localhost:3000
 ```
-Then you can see the message is sent from server to client. 
+
+And then you can see the message is sent from server to client. 
 
