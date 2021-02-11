@@ -16,6 +16,8 @@ We use SSE whenever we have requirement that need simple one-way communication o
 ## How this SSE works?
 Since by default server does not recognize the client, the first handshake must always started by client. After server gets this handshake request from client, server does not immediately reply but instead hold the response. Right before server has to return the response, server will "trap" this request with loop forever. By this "eternal" connection, server can take the advantage to send as many messages to the client as desired. Actually under this request, client waits forever for the server's response but it never happen.
 
+![Sequence Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mirzaakhena/sse/master/sse_flow.pu)
+
 ## How to close connection?
 The server can decide whether to close the connection to the client by leaving the loop. On the other hand, the client can also close the connection to the server easily by canceling the handshake request that has not been completed (because of loop traps). This will trigger the server to close the connection to the client too.
 
