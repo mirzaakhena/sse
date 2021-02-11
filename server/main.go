@@ -13,10 +13,10 @@ func handleSSE() http.HandlerFunc {
 		fmt.Printf("Get handshake from client\n")
 
 		// prepare the header
-		//w.Header().Set("Content-Type", "text/event-stream")
-		//w.Header().Set("Cache-Control", "no-cache")
-		//w.Header().Set("Connection", "keep-alive")
-		//w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Content-Type", "text/event-stream")
+		w.Header().Set("Cache-Control", "no-cache")
+		w.Header().Set("Connection", "keep-alive")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
 
 		// instantiate the channel
 		messageChan = make(chan string)
