@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 )
 
@@ -69,13 +68,17 @@ func sendMessage(message string) http.HandlerFunc {
 
 func main() {
 
-	http.HandleFunc("/handshake", handleSSE())
-
-	http.HandleFunc("/sendmessage", sendMessage("hello client"))
-
 	fmt.Printf("Server is running, makesure you already run the client\n")
 	fmt.Printf("then open another console and call\n\n")
 	fmt.Printf(" curl localhost:3000/sendmessage\n\n")
 
-	log.Fatal("HTTP server error: ", http.ListenAndServe("localhost:3000", nil))
+	http.HandleFunc("/handshake", handleSSE())
+
+	http.HandleFunc("/sendmessage", sendMessage("hello client"))
+
+	err := http.ListenAndServe("localhost:3000", nil)
+	if err != nil {
+		panic("HTTP server error")
+	}
+
 }

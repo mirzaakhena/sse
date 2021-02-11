@@ -79,7 +79,7 @@ If no error happen, means that the connection has been successfully established.
 ```
 for {
 
-  // TRY_OPEN_CONNECTION
+  // TRY_OPEN_CONNECTION state
   res, err := client.Do(req)
   if err != nil {
     time.Sleep(1 * time.Second)
