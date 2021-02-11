@@ -1,22 +1,14 @@
 @startuml SSE Flow
 
+autonumber
 participant CLIENT
 participant SERVER
-actor trigger
 
 CLIENT -> SERVER : initiate handshake
-
-trigger -> SERVER : A
 SERVER -> CLIENT : sending message A
-
-trigger -> SERVER : B
 SERVER -> CLIENT : sending message B
-
-trigger -> SERVER : C
 SERVER -> CLIENT : sending message C
-
 ...
-
 SERVER --> CLIENT : Ending the Connection
 
 @enduml

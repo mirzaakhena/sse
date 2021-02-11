@@ -14,7 +14,7 @@ Because we want server have an ability to send message to client.
 We use SSE whenever we have requirement that need simple one-way communication only from server to client. If we need two-way communication from server to client, then it's better to use websocket instead.
 
 ## How this SSE works?
-Since by default server does not recognize the client, the first handshake must always started by client. After server gets this handshake request from client, server does not immediately reply but instead hold the response. Right before server has to return the response, server will "trap" this request with loop forever. By this "eternal" connection, server can take the advantage to send as many messages to the client as desired. Actually under this request, client waits forever for the server's response but it never happen.
+Since by default server does not recognize the client, the first handshake must always started by client (no 1). After server gets this handshake request from client, server does not immediately reply but instead hold the response. Right before server has to return the response, server will "trap" this request with loop forever. By this "eternal" seamless connection, server can take the advantage to send as many messages to the client as desired (no 2, 3, 4). Actually under this request, client waits forever for the server's response but it never happen until server decide to end it (no 5).
 
 ![Sequence Diagram](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/mirzaakhena/sse/master/sse_flow.pu)
 
