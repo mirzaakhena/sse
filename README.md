@@ -153,7 +153,7 @@ case message := <-messageChan:
 
 
 
-## How to test both server and client?
+## How to run both server and client?
 You can try run the code by open a 3 console. 
 
 First console run the server
@@ -172,6 +172,4 @@ Third console run the curl to trigger server sending a message to client
 ```
 $ curl localhost:3000
 ```
-
-And then you can see the message is sent from server to client. 
 
