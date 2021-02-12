@@ -62,11 +62,10 @@ defer func() {
 ```
 
 ## How to start sending the message to client?
-We can just simply put the message under channel. Make sure the messageChan is instantiate before by call the handshake first, before we can use it.
+We can just simply put the message under channel. Make sure the messageChan is instantiate before.
 ```
 messageChan <- "Hello"
 ```
-
 
 ## How to implement SSE Client with go?
 First we initialize the http client and prepare the handshake API to server
@@ -87,15 +86,15 @@ for {
     time.Sleep(1 * time.Second)
     continue
   }
-   log.Println("connection established..")
+  log.Println("connection established..")
 
   ...
 
 }
 ```
 
-Then we go to the next state, WAITING_MESSAGE state. Remember we still under the same loop.
-Here We need another loop to maintain the message receiver.
+Still under the same loop, Then we need to handle the next state, WAITING_MESSAGE state.
+We need another loop to maintain the message receivement from server.
 ```
 for {
 
@@ -119,7 +118,7 @@ messageChan := make(chan string)
 stopChan := make(chan int)   
 ```
 
-We define the goroutine and run it immediately to listen the message from server.
+We define the goroutine and run it immediately to listen the message.
 Any message will goes to messageChan and any error (connection closed) will trigger the stopChan channel
 ```
 go func() {
@@ -135,9 +134,9 @@ go func() {
 }()
 ```
 
-And then the last part is we select which channel is triggered.
-stopChan will change the stillListening state (that breaking the loop for WAITING_MESSAGE state)
-messageChan will printing the message to console
+And then the last part is selecting which channel is triggered.
+stopChan will change the stillListening state (that breaking the loop for WAITING_MESSAGE state).
+In the other hand, messageChan will simply printing the message to console
 
 ```
 select {
@@ -152,8 +151,8 @@ case message := <-messageChan:
 ```
 
 
-
 ## How to run both server and client?
+
 You can try run the code by open a 3 console. 
 
 First console run the server
@@ -172,4 +171,21 @@ Third console run the curl to trigger server sending a message to client
 ```
 $ curl localhost:3000
 ```
+
+## Use browser as the client
+You can also use browser as client. In this case yu don't need to run the client apps.
+All you have todo is open 2 tabs on the browser, then
+
+In the first browser tab, input:
+```
+localhost:3000/handshake
+```
+
+In the second browser tab, input:
+```
+localhost:3000/sendmessage
+```
+
+You will see the message is printed in the first browser.
+
 
