@@ -12,7 +12,9 @@ func handleSSE() http.HandlerFunc {
 
 		fmt.Printf("Get handshake from client\n")
 
-		// prepare the header
+		// prepare the header for browser (if you want to use browser as client)
+		// this header can be use by browser so that it will directly print the message
+		// without need to waiting the end of response from server
 		w.Header().Set("Content-Type", "text/event-stream")
 		w.Header().Set("Cache-Control", "no-cache")
 		w.Header().Set("Connection", "keep-alive")
@@ -53,11 +55,13 @@ func handleSSE() http.HandlerFunc {
 	}
 }
 
-func sendMessage(message string) http.HandlerFunc {
+func sendMessage() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
 		if messageChan != nil {
 			fmt.Printf("print message to client\n")
+
+			message := "Hello Client"
 
 			// send the message through the available channel
 			messageChan <- message
@@ -68,13 +72,13 @@ func sendMessage(message string) http.HandlerFunc {
 
 func main() {
 
-	fmt.Printf("Server is running, makesure you already run the client\n")
-	fmt.Printf("then open another console and call\n\n")
+	fmt.Printf("Server is running,\nmakesure you already run the client\n")
+	fmt.Printf("open another console and call\n\n")
 	fmt.Printf(" curl localhost:3000/sendmessage\n\n")
 
 	http.HandleFunc("/handshake", handleSSE())
 
-	http.HandleFunc("/sendmessage", sendMessage("hello client"))
+	http.HandleFunc("/sendmessage", sendMessage())
 
 	err := http.ListenAndServe("localhost:3000", nil)
 	if err != nil {

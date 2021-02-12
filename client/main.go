@@ -16,9 +16,11 @@ func main() {
 		panic(err)
 	}
 
+	fmt.Printf("Client is running,\nclient trying to initiate the communication to server\n")
+
 	for {
 
-		fmt.Printf("Try to shake hand to server\n")
+		fmt.Printf("try to shake hand to server in second %v\n", time.Now().Format("5"))
 		res, err := client.Do(req)
 
 		// retry if handshake is still fail
